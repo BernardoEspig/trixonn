@@ -1,5 +1,4 @@
 from flask import jsonify, current_app, Blueprint, Flask, render_template, request, redirect, url_for, flash, session
-import mysql.connector
 import uuid
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash

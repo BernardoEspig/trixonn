@@ -1,5 +1,4 @@
 from flask import Blueprint, Flask, render_template, request, redirect, url_for, flash, session
-import mysql.connector
 import re
 import hashlib
 import uuid
