@@ -56,7 +56,7 @@ def verify_session():
         return False
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
 
     try:
         # Versão simplificada - remove a verificação de expires_at
@@ -87,7 +87,7 @@ def login():
             return redirect(url_for('login.login'))
 
         db = get_db_connection()
-        cursor = db.cursor(dictionary=True)
+        cursor = db.cursor(cursor_factory=DictCursor)
 
         try:
             cursor.execute("SELECT id, nome, senha FROM cadastro_usuario WHERE email = %s", (email,))
@@ -190,7 +190,7 @@ def forgot_password():
     email = request.form['email']
 
     with get_db_connection() as db:
-        cursor = db.cursor(dictionary=True)
+        cursor = db.cursor(cursor_factory=DictCursor)
 
         # Verifica se o usuário existe
         cursor.execute("SELECT id FROM cadastro_usuario WHERE email = %s", (email,))
@@ -258,7 +258,7 @@ def reset_password():
             return redirect(url_for('reset_password', token=token))
 
         with get_db_connection() as db:
-            cursor = db.cursor(dictionary=True)
+            cursor = db.cursor(cursor_factory=DictCursor)
 
             # Verifica token válido
             cursor.execute("""

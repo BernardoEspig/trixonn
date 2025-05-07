@@ -240,7 +240,7 @@ def verify_session():
         return False
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         cursor.execute("""
             SELECT * FROM user_sessions 
@@ -342,7 +342,7 @@ def user_profile():
     # Processar GET
     db = get_db_connection()
     try:
-        cursor = db.cursor(dictionary=True)
+        cursor = db.cursor(cursor_factory=DictCursor)
 
         # Consulta otimizada que busca todos os dados necessários
         cursor.execute("""
@@ -402,7 +402,7 @@ def user_profile():
 def get_usuarios_disponiveis():
     """Retorna todos os usuários para seleção como responsáveis"""
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         cursor.execute("""
             SELECT u.id, u.nome, d.centro_trabalho 
@@ -459,7 +459,7 @@ def cadastrar_empresa():
 
             # Conexão com o banco de dados
             db = get_db_connection()
-            cursor = db.cursor(dictionary=True)
+            cursor = db.cursor(cursor_factory=DictCursor)
 
             try:
                 print("Inserindo empresa no banco...")  # Debug
@@ -651,7 +651,7 @@ def gerenciar_empresa():
     user_id = session['user_id']
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         # Consulta principal das empresas
         cursor.execute("""
@@ -781,7 +781,7 @@ def api_usuarios_empresa(empresa_id):
         return jsonify({'error': 'Não autorizado'}), 401
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         # Busca usuários vinculados à empresa
         cursor.execute("""
@@ -868,7 +868,7 @@ def adicionar_treinamento(empresa_id, usuario_id):
     novo_treinamento = data.get('treinamento', '')
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         # Pega os treinamentos atuais
         cursor.execute("SELECT treinamentos FROM dados_usuario WHERE user_id = %s", (usuario_id,))
@@ -906,7 +906,7 @@ def remover_treinamento(empresa_id, usuario_id):
     treinamento_remover = data.get('treinamento', '')
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         # Pega os treinamentos atuais
         cursor.execute("SELECT treinamentos FROM dados_usuario WHERE user_id = %s", (usuario_id,))
@@ -957,7 +957,7 @@ def user_treinamentos():
 
     user_id = session['user_id']
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
 
     try:
         # Obter dados do usuário
@@ -1078,7 +1078,7 @@ def download_certificado(filename):
     # Segurança: verificar se o usuário tem permissão para acessar este arquivo
     user_id = session['user_id']
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         cursor.execute("SELECT empresa_id FROM dados_usuario WHERE user_id = %s", (user_id,))
         empresa_id = cursor.fetchone()['empresa_id']
@@ -1124,7 +1124,7 @@ def remover_certificado():
     treinamento_nome = request.form.get('treinamento_nome')
 
     db = get_db_connection()
-    cursor = db.cursor(dictionary=True)
+    cursor = db.cursor(cursor_factory=DictCursor)
     try:
         # Obter dados atuais
         cursor.execute("SELECT certificados FROM dados_usuario WHERE user_id = %s", (user_id,))
