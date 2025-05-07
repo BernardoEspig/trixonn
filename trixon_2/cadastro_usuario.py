@@ -71,11 +71,11 @@ def registrar():
                 FROM empresa_usuarios eu
                 JOIN empresas e ON eu.empresa_id = e.id
                 WHERE eu.email = %s
-                ON DUPLICATE KEY UPDATE
-                    empresa_id = VALUES(empresa_id),
-                    vinculo = VALUES(vinculo),
-                    empresa = VALUES(empresa),
-                    segmento = VALUES(segmento)
+                ON CONFLICT (user_id) DO UPDATE SET
+                    empresa_id = EXCLUDED.empresa_id,
+                    vinculo = EXCLUDED.vinculo,
+                    empresa = EXCLUDED.empresa,
+                    segmento = EXCLUDED.segmento
             """, (user_id, email))
 
             db.commit()

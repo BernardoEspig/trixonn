@@ -72,11 +72,11 @@ def vincular_usuario_existente(user_id, email):
             FROM empresa_usuarios eu
             JOIN empresas e ON eu.empresa_id = e.id
             WHERE eu.usuario_id = %s
-            ON DUPLICATE KEY UPDATE
-                empresa_id = VALUES(empresa_id),
-                vinculo = VALUES(vinculo),
-                empresa = VALUES(empresa),
-                segmento = VALUES(segmento)
+            ON CONFLICT (user_id) DO UPDATE SET
+                empresa_id = EXCLUDED.empresa_id,
+                vinculo = EXCLUDED.vinculo,
+                empresa = EXCLUDED.empresa,
+                segmento = EXCLUDED.segmento
         """, (user_id, user_id))
 
         db.commit()
@@ -113,11 +113,11 @@ def vincular_usuarios_automaticamente():
             FROM empresa_usuarios eu
             JOIN empresas e ON eu.empresa_id = e.id
             WHERE eu.usuario_id IS NOT NULL
-            ON DUPLICATE KEY UPDATE
-                empresa_id = VALUES(empresa_id),
-                vinculo = VALUES(vinculo),
-                empresa = VALUES(empresa),
-                segmento = VALUES(segmento)
+            ON CONFLICT (user_id) DO UPDATE SET
+                empresa_id = EXCLUDED.empresa_id,
+                vinculo = EXCLUDED.vinculo,
+                empresa = EXCLUDED.empresa,
+                segmento = EXCLUDED.segmento
         """)
 
         db.commit()
@@ -135,10 +135,10 @@ def vincular_usuario_empresa(user_id, empresa_id):
     cursor = db.cursor()
     try:
         cursor.execute("""
-            INSERT INTO dados_usuario 
-            (user_id, empresa_id) 
+            INSERT INTO dados_usuario (user_id, empresa_id) 
             VALUES (%s, %s)
-            ON DUPLICATE KEY UPDATE empresa_id = VALUES(empresa_id)
+            ON CONFLICT (user_id) DO UPDATE SET 
+                empresa_id = EXCLUDED.empresa_id
         """, (user_id, empresa_id))
         db.commit()
     except Exception as e:
@@ -197,11 +197,11 @@ def sincronizar_usuarios_empresa():
             FROM empresa_usuarios eu
             JOIN empresas e ON eu.empresa_id = e.id
             WHERE eu.usuario_id IS NOT NULL
-            ON DUPLICATE KEY UPDATE
-                empresa_id = VALUES(empresa_id),
-                vinculo = VALUES(vinculo),
-                empresa = VALUES(empresa),
-                segmento = VALUES(segmento)
+            ON CONFLICT (user_id) DO UPDATE SET
+                empresa_id = EXCLUDED.empresa_id,
+                vinculo = EXCLUDED.vinculo,
+                empresa = EXCLUDED.empresa,
+                segmento = EXCLUDED.segmento
         """)
 
         db.commit()
@@ -493,12 +493,11 @@ def cadastrar_empresa():
 
                             # 1. Insere/atualiza na empresa_usuarios
                             cursor.execute("""
-                                INSERT INTO empresa_usuarios 
-                                (empresa_id, nome, email, vinculo)
+                                INSERT INTO empresa_usuarios (empresa_id, nome, email, vinculo)
                                 VALUES (%s, %s, %s, %s)
-                                ON DUPLICATE KEY UPDATE
-                                    nome = VALUES(nome),
-                                    vinculo = VALUES(vinculo)
+                                ON CONFLICT (empresa_id, email) DO UPDATE SET
+                                    nome = EXCLUDED.nome,
+                                    vinculo = EXCLUDED.vinculo
                             """, (
                                 empresa_id,
                                 usuario.get('nome', '').strip(),

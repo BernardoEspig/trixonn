@@ -113,22 +113,25 @@ def login():
                 """, (user['id'], email))
 
                 cursor.execute("""
+                    WITH source_data AS (
+                        SELECT 
+                            %s AS user_id,
+                            eu.empresa_id,
+                            eu.vinculo,
+                            e.nome_empresa,
+                            e.segmento
+                        FROM empresa_usuarios eu
+                        JOIN empresas e ON eu.empresa_id = e.id
+                        WHERE eu.email = %s
+                    )
                     INSERT INTO dados_usuario (user_id, empresa_id, vinculo, empresa, segmento)
-                    SELECT 
-                        %s,
-                        eu.empresa_id,
-                        eu.vinculo,
-                        e.nome_empresa,
-                        e.segmento
-                    FROM empresa_usuarios eu
-                    JOIN empresas e ON eu.empresa_id = e.id
-                    WHERE eu.email = %s
-                    AND NOT EXISTS (
+                    SELECT * FROM source_data
+                    ON CONFLICT (user_id) DO UPDATE SET
+                        empresa_id = EXCLUDED.empresa_id,
+                        vinculo = EXCLUDED.vinculo
+                    WHERE NOT EXISTS (
                         SELECT 1 FROM dados_usuario WHERE user_id = %s
                     )
-                    ON DUPLICATE KEY UPDATE
-                        empresa_id = VALUES(empresa_id),
-                        vinculo = VALUES(vinculo)
                 """, (user['id'], email, user['id']))
 
                 db.commit()
