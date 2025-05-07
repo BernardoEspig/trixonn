@@ -5,6 +5,7 @@ from user_page import user_page_bp
 from introducao import introducao_bp
 import os
 import psycopg2
+from psycopg2.extras import DictCursor
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta_super_segura'
 

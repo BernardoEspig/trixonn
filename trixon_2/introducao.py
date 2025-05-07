@@ -1,6 +1,7 @@
 from flask import jsonify, current_app, Blueprint, Flask, render_template, request, redirect, url_for, flash, session
 import uuid
 from datetime import datetime, timedelta
+from psycopg2.extras import DictCursor
 
 introducao_bp = Blueprint('introducao_bp', __name__)
 

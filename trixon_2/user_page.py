@@ -8,6 +8,7 @@ import pandas as pd
 from werkzeug.utils import secure_filename
 import os
 import psycopg2
+from psycopg2.extras import DictCursor
 
 user_page_bp = Blueprint('user_page_bp', __name__)
 

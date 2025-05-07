@@ -6,6 +6,7 @@ from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import mailtrap as mt
 import psycopg2
+from psycopg2.extras import DictCursor
 
 login_bp = Blueprint('login', __name__)
 

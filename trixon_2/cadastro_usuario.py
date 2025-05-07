@@ -3,6 +3,7 @@ import re  # Para validar a senha com regex
 import psycopg2
 from flask import Blueprint
 import psycopg2
+from psycopg2.extras import DictCursor
 
 cadastro_usuario_bp = Blueprint('cadastro_usuario_bp', __name__)
 
