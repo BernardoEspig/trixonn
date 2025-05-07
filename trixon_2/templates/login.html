@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="{{ url_for('login.login') }}">
+        <input type="email" name="email" placeholder="Seu e-mail" required>
+        <input type="password" name="senha" placeholder="Sua senha" required>
+        <button type="submit">Entrar</button>
+    </form>
+
+<div style="margin-top: 20px;">
+    <p>Não tem uma conta? <a href="{{ url_for('cadastro_usuario_bp.registrar') }}">Crie uma agora</a></p>
+</div>
+</body>
+</html>

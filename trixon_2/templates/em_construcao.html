@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Em Construção</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome e Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fff;
+            padding-bottom: 80px;
+        }
+
+        /* Cabeçalho padrão */
+        .header {
+            background-color: #0e2d4d;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 20px;
+        }
+
+        .header a {
+            color: #79c3ff;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        /* Conteúdo da página */
+        .construction-container {
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .construction-icon {
+            font-size: 60px;
+            color: #f1a308;
+            margin-bottom: 20px;
+        }
+
+        .construction-message {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .btn-back {
+            background-color: #00649C;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background-color: #00527f;
+        }
+
+        /* Rodapé fixo */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bottom-nav .active {
+            color: #f1a308;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h2>Hi, {{ user_name }}!</h2>
+                <a href="#">Editar informações</a>
+            </div>
+            <div class="avatar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="construction-container">
+        <div class="construction-icon">
+            <i class="fas fa-tools"></i>
+        </div>
+        <div class="construction-message">
+            Página em construção. Estamos trabalhando para trazer o melhor conteúdo para você!
+        </div>
+        <a href="{{ url_for('user_page_bp.documentacoes') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Voltar para Documentação de Ativos
+        </a>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="bottom-nav">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-clock"></i>
+        <i class="fas fa-store"></i>
+        <i class="fas fa-user"></i>
+    </div>
+
+</body>
+</html>

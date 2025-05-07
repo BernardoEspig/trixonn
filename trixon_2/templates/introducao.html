@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Conheça Nossa Solução</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome e Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS do Carrossel -->
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fff;
+            padding-bottom: 80px;
+        }
+
+        /* Cabeçalho padrão */
+        .header {
+            background-color: #0e2d4d;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 20px;
+        }
+
+        .header a {
+            color: #79c3ff;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        /* Conteúdo do Carrossel */
+        .carousel-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .logo-container {
+            margin-bottom: 30px;
+        }
+
+        .logo-container img {
+            max-width: 250px;
+            height: auto;
+        }
+
+        .slide {
+            display: none;
+            animation: fade 0.5s ease-in-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        .slide-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .slide-title {
+            color: #0e2d4d;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .slide-text {
+            color: #333;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #ccc;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #0e2d4d;
+        }
+
+        .btn-carousel {
+            background-color: #00649C;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-carousel:hover {
+            background-color: #00527f;
+        }
+
+        .btn-carousel.secondary {
+            background-color: #ccc;
+            color: #333;
+        }
+
+        .btn-carousel.secondary:hover {
+            background-color: #bbb;
+        }
+
+        /* Animação */
+        @keyframes fade {
+            from {opacity: 0.4}
+            to {opacity: 1}
+        }
+
+        /* Rodapé fixo */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bottom-nav .active {
+            color: #f1a308;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h2>Conheça Nossa Plataforma</h2>
+                <a href="{{ url_for('user_page_bp.user_page') }}">Pular introdução</a>
+            </div>
+            <div class="avatar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal - Carrossel -->
+    <div class="carousel-container">
+        <div class="logo-container">
+            <img src="{{ url_for('static', filename='logo2.png') }}" alt="Logo da Empresa">
+        </div>
+
+        <!-- Slide 1 -->
+        <div class="slide active">
+            <img src="{{ url_for('static', filename='image/integracao.png') }}" class="slide-image" alt="Sistema Integrador">
+            <h3 class="slide-title">Solução Completa para seu Negócio</h3>
+            <p class="slide-text">
+                Nossa plataforma integrada oferece todas as ferramentas necessárias para transformar a gestão da sua empresa.
+                De controle de ativos a gerenciamento de usuários, tudo em um único lugar com máxima eficiência.
+            </p>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="slide">
+            <img src="{{ url_for('static', filename='image/marketplace.png') }}" class="slide-image" alt="Marketplace">
+            <h3 class="slide-title">Marketplace de Soluções</h3>
+            <p class="slide-text">
+                Conectamos você aos melhores fornecedores para qualquer necessidade do seu negócio.
+                Encontre rapidamente soluções especializadas, desde serviços técnicos até consultorias estratégicas.
+            </p>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="slide">
+            <img src="{{ url_for('static', filename='image/ra.png') }}" class="slide-image" alt="Realidade Aumentada">
+            <h3 class="slide-title">Inovação com Realidade Aumentada</h3>
+            <p class="slide-text">
+                Oferecemos soluções pioneiras em RA para treinamentos, manutenções remotas e visualização de dados.
+                Transforme processos complexos em experiências intuitivas e interativas.
+            </p>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="slide">
+            <img src="{{ url_for('static', filename='image/gestao.png') }}" class="slide-image" alt="Gestão Integrada">
+            <h3 class="slide-title">Gestão Inteligente</h3>
+            <p class="slide-text">
+                Automatize processos, tome decisões baseadas em dados e otimize todos os aspectos da sua operação.
+                Nossa IA analítica identifica oportunidades e riscos antes que eles aconteçam.
+            </p>
+        </div>
+
+        <!-- Navegação por pontos -->
+        <div class="carousel-dots">
+            <span class="dot active" data-slide="0"></span>
+            <span class="dot" data-slide="1"></span>
+            <span class="dot" data-slide="2"></span>
+            <span class="dot" data-slide="3"></span>
+        </div>
+
+        <!-- Botões de navegação -->
+        <div class="carousel-nav">
+            <button class="btn-carousel secondary" id="prevBtn">
+                <i class="fas fa-arrow-left"></i> Anterior
+            </button>
+            <button class="btn-carousel" id="nextBtn">
+                Próximo <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="bottom-nav">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-clock"></i>
+        <i class="fas fa-store"></i>
+        <i class="fas fa-user"></i>
+    </div>
+
+    <!-- JavaScript do Carrossel -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            let currentSlide = 0;
+
+            // Mostrar slide atual
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+
+                currentSlide = (n + slides.length) % slides.length;
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+
+                // Atualizar botões no primeiro/último slide
+                if (currentSlide === 0) {
+                    prevBtn.style.visibility = 'hidden';
+                } else {
+                    prevBtn.style.visibility = 'visible';
+                }
+
+                if (currentSlide === slides.length - 1) {
+                    nextBtn.innerHTML = 'Começar <i class="fas fa-check"></i>';
+                } else {
+                    nextBtn.innerHTML = 'Próximo <i class="fas fa-arrow-right"></i>';
+                }
+            }
+
+            // Event listeners
+            nextBtn.addEventListener('click', () => {
+                if (currentSlide === slides.length - 1) {
+                    window.location.href = "{{ url_for('user_page_bp.user_page') }}";
+                } else {
+                    showSlide(currentSlide + 1);
+                }
+            });
+
+            prevBtn.addEventListener('click', () => showSlide(currentSlide - 1));
+
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    showSlide(parseInt(this.getAttribute('data-slide')));
+                });
+            });
+
+            // Inicializar
+            showSlide(0);
+        });
+    </script>
+</body>
+</html>

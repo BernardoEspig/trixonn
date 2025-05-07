@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Documentação de Ativos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome e Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fff;
+            padding-bottom: 80px;
+        }
+
+        /* Cabeçalho padrão */
+        .header {
+            background-color: #0e2d4d;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 20px;
+        }
+
+        .header a {
+            color: #79c3ff;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        /* Conteúdo da página */
+        .documentacoes-container {
+            padding: 20px;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .page-header h1 {
+            font-size: 18px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Itens de documentação */
+        .item {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+        }
+
+        .item:hover {
+            transform: translateY(-2px);
+        }
+
+        .item i {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #3f85f7;
+        }
+
+        .item span {
+            font-size: 14px;
+            font-weight: 500;
+            flex-grow: 1;
+        }
+
+        .btn-back {
+            background-color: #ccc;
+            color: #333;
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .btn-back:hover {
+            background-color: #bbb;
+        }
+
+        /* Rodapé fixo */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bottom-nav .active {
+            color: #f1a308;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h2>Hi, {{ user_name }}!</h2>
+                <a href="#">Editar informações</a>
+            </div>
+            <div class="avatar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo principal -->
+    <div class="documentacoes-container">
+        <a href="{{ url_for('user_page_bp.documentacoes') }}" class="btn-back">
+            <i class="fas fa-arrow-left"></i> Voltar para Documentações
+        </a>
+
+        <div class="page-header">
+            <h1><i class="fas fa-file-contract"></i> Documentação de Ativos</h1>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-book"></i>
+            <span>Manuais de Operação</span>
+            <a href="{{ url_for('user_page_bp.manuais_operacao') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-file-code"></i>
+            <span>Especificações Técnicas</span>
+            <a href="{{ url_for('user_page_bp.especificacoes_tecnicas') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-power-off"></i>
+            <span>Procedimentos de Inicialização/Desligamento</span>
+            <a href="{{ url_for('user_page_bp.procedimentos_inicializacao') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-cog"></i>
+            <span>Configuração de Sistemas e Equipamentos</span>
+            <a href="{{ url_for('user_page_bp.configuracao_sistemas') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-history"></i>
+            <span>Histórico de Manutenção</span>
+            <a href="{{ url_for('user_page_bp.historico_manutencao') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-clipboard-list"></i>
+            <span>Procedimentos Operacionais Padrão</span>
+            <a href="{{ url_for('user_page_bp.procedimentos_operacionais') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-shield-alt"></i>
+            <span>Medidas de Segurança</span>
+            <a href="{{ url_for('user_page_bp.medidas_seguranca') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-file-invoice"></i>
+            <span>Instruções Técnicas</span>
+            <a href="{{ url_for('user_page_bp.instrucoes_tecnicas') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-check-circle"></i>
+            <span>Padrões de Conformidade</span>
+            <a href="{{ url_for('user_page_bp.padroes_conformidade') }}" class="btn-link">
+                <i class="fas fa-chevron-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <!-- Rodapé -->
+    <div class="bottom-nav">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-clock"></i>
+        <i class="fas fa-store"></i>
+        <i class="fas fa-user"></i>
+    </div>
+
+</body>
+</html>

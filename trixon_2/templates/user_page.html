@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Página do Usuário</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome e Fonte -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #fff;
+            color: #333;
+            padding-bottom: 70px;
+        }
+
+        /* Header */
+        .header {
+            background-color: #0e2d4d;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 22px;
+        }
+
+        .header a {
+            color: #79c3ff;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        .search-box {
+            margin-top: 15px;
+            background: white;
+            padding: 10px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box i {
+            color: #aaa;
+            margin-right: 8px;
+        }
+
+        .search-box input {
+            border: none;
+            outline: none;
+            width: 100%;
+        }
+
+        /* Categorias */
+        .categorias {
+            padding: 20px;
+        }
+
+        .categorias-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .categorias h3 {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .categorias a {
+            font-size: 13px;
+            color: #3f85f7;
+            text-decoration: none;
+        }
+
+        .item {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .item i {
+            font-size: 20px;
+            margin-right: 15px;
+            color: #3f85f7;
+        }
+
+        .item span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* Rodapé fixo */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bottom-nav .active {
+            color: #f1a308;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h2>Hi, {{ user_name }}!</h2>
+                <a href="#">Editar informações</a>
+            </div>
+            <div class="avatar"></div>
+        </div>
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Find things to do">
+        </div>
+    </div>
+
+    <div class="categorias">
+        <div class="categorias-header">
+            <h3>Categorias</h3>
+            <a href="#">View all</a>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-user-circle"></i>
+            <span><a href="{{ url_for('user_page_bp.user_profile') }}">Meu Perfil</a></span>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-building"></i>
+            <span><a href="{{ url_for('user_page_bp.empresa') }}">Empresa</a></span>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-graduation-cap"></i>
+            <span><a href="{{ url_for('user_page_bp.user_treinamentos') }}">Meus Treinamentos</a></span>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-file-alt"></i>
+            <span><a href="{{ url_for('user_page_bp.documentacoes') }}">Documentações</a></span>
+        </div>
+
+        <div class="item">
+            <i class="fas fa-sign-out-alt"></i>
+            <span><a href="{{ url_for('user_page_bp.logout') }}">Sair</a></span>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <i class="fas fa-home active"></i>
+        <i class="fas fa-clock"></i>
+        <i class="fas fa-store"></i>
+        <i class="fas fa-user"></i>
+    </div>
+
+</body>
+</html>

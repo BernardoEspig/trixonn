@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cadastro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+
+    <!-- Mensagens de erro -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <form method="POST" action="/registrar">
+        <input type="text" name="nome" placeholder="Seu nome completo" required>
+
+        <input type="email" name="email" placeholder="Seu e-mail" required>
+
+        <input type="password" name="senha" placeholder="Sua senha" required>
+
+        <small style="font-size: 12px; color: #555; margin-top: -10px;">
+            Use 1 maiúscula, 1 número e @#$%!_-
+        </small>
+
+        <button type="submit">Cadastrar</button>
+    </form>
+
+    <div>
+        <p>Já tem conta? <a href="/login">Faça login</a></p>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Meus Treinamentos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome e Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fff;
+            padding-bottom: 80px;
+        }
+
+        /* Cabeçalho padrão */
+        .header {
+            background-color: #0e2d4d;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 20px;
+        }
+
+        .header a {
+            color: #79c3ff;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        /* Conteúdo da página */
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 20px;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info {
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        /* Cards de treinamento */
+        .treinamentos-list {
+            margin-top: 20px;
+        }
+
+        .treinamento-card {
+            background-color: #fff;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+        }
+
+        .treinamento-header {
+            margin-bottom: 15px;
+        }
+
+        .treinamento-header h3 {
+            font-size: 16px;
+            color: #333;
+        }
+
+        /* Ações e formulários */
+        .treinamento-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-top: 15px;
+        }
+
+        .upload-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .upload-form input[type="file"] {
+            flex-grow: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            background-color: #f9f9f9;
+        }
+
+        /* Botões */
+        .btn {
+            padding: 12px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            transition: background-color 0.3s;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: #00649C;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #00527f;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        .btn-back {
+            background-color: #ccc;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .btn-back:hover {
+            background-color: #bbb;
+        }
+
+        /* Mensagem sem treinamentos */
+        .no-trainings {
+            color: #666;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Rodapé fixo */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bottom-nav .active {
+            color: #f1a308;
+        }
+        /* Adicione ao seu bloco de estilo existente */
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.btn[disabled] {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho Padrão -->
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h2>Hi, {{ user_name }}!</h2>
+                <a href="#">Editar informações</a>
+            </div>
+            <div class="avatar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="container">
+        <!-- Botão Voltar -->
+        <a href="{{ url_for('user_page_bp.user_page') }}" class="btn btn-back">
+            <i class="fas fa-arrow-left"></i> Voltar
+        </a>
+
+        <h1><i class="fas fa-certificate"></i> Meus Treinamentos</h1>
+        <div class="user-info">
+            <p>Empresa: {{ empresa_nome }}</p>
+            <p>Usuário: {{ user_nome }}</p>
+        </div>
+
+        <div class="treinamentos-list">
+            {% if treinamentos %}
+                {% for treinamento in treinamentos %}
+                <div class="treinamento-card">
+                    <div class="treinamento-header">
+                        <h3>{{ treinamento.nome }}</h3>
+                    </div>
+
+                    <div class="treinamento-actions">
+                        {% if treinamento.arquivo %}
+                        <a href="{{ url_for('user_page_bp.download_certificado', filename=treinamento.arquivo.split('/')[-1]) }}"
+                           target="_blank" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> Visualizar
+                        </a>
+                        <form method="post" style="display:inline;">
+                            <input type="hidden" name="treinamento_nome" value="{{ treinamento.nome }}">
+                            <button type="submit" name="remover_certificado" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Remover
+                            </button>
+                        </form>
+                        {% else %}
+                        <form method="post" enctype="multipart/form-data" class="upload-form">
+                            <input type="hidden" name="treinamento_nome" value="{{ treinamento.nome }}">
+                            <input type="file" name="certificado" accept=".pdf" required>
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-upload"></i>
+                            </button>
+                        </form>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-trainings">Nenhum treinamento atribuído.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Rodapé Padrão -->
+    <div class="bottom-nav">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-clock"></i>
+        <i class="fas fa-store"></i>
+        <i class="fas fa-user active"></i>
+    </div>
+
+<script>
+// Intercepta todos os formulários de upload
+document.querySelectorAll('.upload-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const formData = new FormData(this);
+        const card = this.closest('.treinamento-card');
+        const treinamentoNome = this.querySelector('input[name="treinamento_nome"]').value;
+        const submitBtn = this.querySelector('button[type="submit"]');
+
+        // Mostra loader no botão
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+        submitBtn.disabled = true;
+
+        try {
+            const response = await fetch('{{ url_for("user_page_bp.user_treinamentos") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                // Atualiza o card dinamicamente
+                const actionsDiv = card.querySelector('.treinamento-actions');
+                actionsDiv.innerHTML = `
+                    <a href="${data.file_url}" target="_blank" class="btn btn-primary">
+                        <i class="fas fa-eye"></i> Visualizar
+                    </a>
+                    <form method="post" style="display:inline;">
+                        <input type="hidden" name="treinamento_nome" value="${treinamentoNome}">
+                        <button type="submit" name="remover_certificado" class="btn btn-danger">
+                            <i class="fas fa-trash"></i> Remover
+                        </button>
+                    </form>
+                `;
+
+                // Adiciona evento ao novo botão de remoção
+                setupRemovalHandlers();
+            } else {
+                alert('Erro: ' + (data.error || 'Falha no upload'));
+            }
+        } catch (error) {
+            alert('Erro na comunicação com o servidor');
+        } finally {
+            submitBtn.innerHTML = '<i class="fas fa-upload"></i>';
+            submitBtn.disabled = false;
+        }
+    });
+});
+
+// Configura handlers para formulários de remoção
+function setupRemovalHandlers() {
+    document.querySelectorAll('form[action*="remover_certificado"]').forEach(form => {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            // Implemente a remoção AJAX similar ao upload se necessário
+            this.submit(); // Mantém o comportamento padrão por enquanto
+        });
+    });
+}
+
+// Inicializa os handlers
+setupRemovalHandlers();
+</script>
+</body>
+</html>

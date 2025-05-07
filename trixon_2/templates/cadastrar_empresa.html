@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastrar Empresa</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Font Awesome e Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #fff;
+            padding-bottom: 80px;
+        }
+
+        /* Cabeçalho padrão */
+        .header {
+            background-color: #0e2d4d;
+            color: white;
+            padding: 20px;
+            border-bottom-left-radius: 25px;
+            border-bottom-right-radius: 25px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 20px;
+        }
+
+        .header a {
+            color: #79c3ff;
+            font-size: 13px;
+            text-decoration: none;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #ddd;
+            border-radius: 50%;
+        }
+
+        /* Conteúdo da página - Estilo do Formulário */
+        .form-container {
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-container h2 {
+            margin-bottom: 20px;
+            font-size: 18px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: red;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            font-size: 14px;
+            border: 1px solid #ccc;
+            border-radius: 25px;
+            background-color: #f9f9f9;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+
+        .form-col {
+            flex: 1;
+        }
+
+        /* Estilo dos botões */
+        .button-group {
+            display: flex;
+            justify-content: flex-start;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            background-color: #00649C;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-submit:hover {
+            background-color: #00527f;
+        }
+
+        .btn-back {
+            background-color: #ccc;
+            color: #333;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-back:hover {
+            background-color: #bbb;
+        }
+
+        /* Estilo para tags de email */
+        .email-tag {
+            display: inline-flex;
+            align-items: center;
+            background: #e1f5fe;
+            padding: 5px 12px;
+            border-radius: 25px;
+            margin: 5px 5px 0 0;
+            font-size: 13px;
+        }
+
+        .email-tag .remove {
+            cursor: pointer;
+            margin-left: 8px;
+            color: #ff6b6b;
+            font-weight: bold;
+        }
+
+        .responsaveis-container {
+            border: 1px solid #eee;
+            padding: 10px;
+            min-height: 50px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-group input {
+            flex: 1;
+            border-radius: 25px !important;
+        }
+
+        .input-group button {
+            width: auto;
+            padding: 12px 15px;
+            border-radius: 25px;
+        }
+
+        .file-upload {
+            margin-top: 5px;
+        }
+
+        .file-upload small {
+            display: block;
+            margin-top: 5px;
+            color: #666;
+            font-size: 12px;
+        }
+
+        /* Rodapé fixo */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+        }
+
+        .bottom-nav i {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .bottom-nav .active {
+            color: #f1a308;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Cabeçalho Padrão -->
+    <div class="header">
+        <div class="header-top">
+            <div>
+                <h2>Hi, {{ user_name }}!</h2>
+                <a href="#">Editar informações</a>
+            </div>
+            <div class="avatar"></div>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="form-container">
+        <h2><i class="fas fa-building"></i> Cadastrar Nova Empresa</h2>
+
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="required-field">Nome da Empresa</label>
+                        <input type="text" name="nome_empresa" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-field">Razão Social</label>
+                        <input type="text" name="razao_social" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-field">CNPJ</label>
+                        <input type="text" name="cnpj" placeholder="00.000.000/0000-00" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-field">Centro de Trabalho</label>
+                        <select name="centro_trabalho" required>
+                            <option value="">Selecione...</option>
+                            {% for centro in opcoes.centros_trabalho %}
+                                <option value="{{ centro }}">{{ centro }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-col">
+                    <div class="form-group">
+                        <label class="required-field">Segmento</label>
+                        <select name="segmento" required>
+                            <option value="">Selecione...</option>
+                            {% for segmento in opcoes.segmentos %}
+                                <option value="{{ segmento }}">{{ segmento }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-field">Email Corporativo</label>
+                        <input type="email" name="email_coorporativo" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Contato</label>
+                        <input type="text" name="contato" placeholder="Telefone ou outro contato">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required-field">Tipo de Empresa</label>
+                        <select name="tipo_empresa" required>
+                            <option value="">Selecione...</option>
+                            {% for tipo in opcoes.tipos_empresa %}
+                                <option value="{{ tipo }}">{{ tipo }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Importar Usuários (Excel)</label>
+                <div class="file-upload">
+                    <input type="file" name="arquivo_usuarios" accept=".xlsx,.xls">
+                    <small>Arquivo deve conter colunas: nome, email, funcao</small>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label>Responsável Técnico</label>
+                        <div id="responsaveis_tecnico_container" class="responsaveis-container"></div>
+                        <div class="input-group">
+                            <input type="email" id="responsavel_tecnico_email" placeholder="Digite o email do responsável">
+                            <button type="button" id="add_responsavel_tecnico" class="btn-submit">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <input type="hidden" name="responsaveis_tecnico_emails" id="responsaveis_tecnico_emails">
+                    </div>
+                </div>
+
+                <div class="form-col">
+                    <div class="form-group">
+                        <label>Responsável Legal</label>
+                        <div id="responsaveis_legal_container" class="responsaveis-container"></div>
+                        <div class="input-group">
+                            <input type="email" id="responsavel_legal_email" placeholder="Digite o email do responsável">
+                            <button type="button" id="add_responsavel_legal" class="btn-submit">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                        <input type="hidden" name="responsaveis_legal_emails" id="responsaveis_legal_emails">
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn-submit">
+                    <i class="fas fa-save"></i> Cadastrar Empresa
+                </button>
+
+                <a href="{{ url_for('user_page_bp.empresa') }}" class="btn-back">
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Rodapé Padrão -->
+    <div class="bottom-nav">
+        <i class="fas fa-home"></i>
+        <i class="fas fa-clock"></i>
+        <i class="fas fa-store active"></i>
+        <i class="fas fa-user"></i>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Função para adicionar um email à lista de responsáveis
+            function setupResponsavel(containerId, inputId, buttonId, hiddenInputId) {
+                const container = document.getElementById(containerId);
+                const emailInput = document.getElementById(inputId);
+                const addBtn = document.getElementById(buttonId);
+                const hiddenInput = document.getElementById(hiddenInputId);
+                let emails = [];
+
+                function updateHiddenInput() {
+                    hiddenInput.value = emails.join(',');
+                }
+
+                function addEmailTag(email) {
+                    const tag = document.createElement('span');
+                    tag.className = 'email-tag';
+                    tag.innerHTML = `${email} <span class="remove" onclick="removeEmail('${email}', '${containerId}', '${hiddenInputId}')">×</span>`;
+                    container.appendChild(tag);
+                }
+
+                addBtn.addEventListener('click', function() {
+                    const email = emailInput.value.trim();
+                    if (validateEmail(email) && !emails.includes(email)) {
+                        emails.push(email);
+                        addEmailTag(email);
+                        updateHiddenInput();
+                        emailInput.value = '';
+                    } else if (!validateEmail(email)) {
+                        alert('Por favor, insira um email válido');
+                    }
+                });
+
+                emailInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        addBtn.click();
+                    }
+                });
+
+                return {
+                    addEmail: function(email) {
+                        if (!emails.includes(email)) {
+                            emails.push(email);
+                            addEmailTag(email);
+                            updateHiddenInput();
+                        }
+                    }
+                };
+            }
+
+            // Validação simples de email
+            function validateEmail(email) {
+                return email.includes('@') && email.includes('.');
+            }
+
+            // Função global para remover emails
+            window.removeEmail = function(email, containerId, hiddenInputId) {
+                const container = document.getElementById(containerId);
+                const hiddenInput = document.getElementById(hiddenInputId);
+                let emails = hiddenInput.value ? hiddenInput.value.split(',') : [];
+
+                emails = emails.filter(e => e !== email);
+                hiddenInput.value = emails.join(',');
+
+                // Reconstruir a lista de tags
+                container.innerHTML = '';
+                emails.forEach(e => {
+                    const tag = document.createElement('span');
+                    tag.className = 'email-tag';
+                    tag.innerHTML = `${e} <span class="remove" onclick="removeEmail('${e}', '${containerId}', '${hiddenInputId}')">×</span>`;
+                    container.appendChild(tag);
+                });
+            };
+
+            // Configurar ambos os campos de responsáveis
+            setupResponsavel('responsaveis_tecnico_container', 'responsavel_tecnico_email', 'add_responsavel_tecnico', 'responsaveis_tecnico_emails');
+            setupResponsavel('responsaveis_legal_container', 'responsavel_legal_email', 'add_responsavel_legal', 'responsaveis_legal_emails');
+        });
+    </script>
+</body>
+</html>

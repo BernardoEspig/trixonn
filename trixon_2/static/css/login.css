@@ -1,0 +1,146 @@
+/* Reset básico e fonte amigável */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #ffffff;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    padding: 40px 20px;
+}
+
+/* Logo da empresa */
+body::before {
+    content: "";
+    display: block;
+    background: url("../logo2.png") no-repeat center top;
+    background-size: contain;
+    width: 100%;
+    height: 80px;
+    margin-bottom: 40px;
+}
+
+/* Formulário principal */
+form {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+/* Campos de entrada */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    padding: 14px 18px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    background-color: #f9f9f9;
+}
+
+/* Botão de login */
+button[type="submit"] {
+    background-color: #00649C;
+    color: #fff;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #00547e;
+}
+
+/* Esqueci senha */
+button:not([type="submit"]) {
+    background: none;
+    border: none;
+    color: #00649C;
+    font-size: 14px;
+    text-align: right;
+    padding: 0;
+    cursor: pointer;
+}
+
+button:not([type="submit"]):hover {
+    text-decoration: underline;
+}
+
+/* Link para registro */
+div p {
+    font-size: 14px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+div p a {
+    color: #00649C;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+div p a:hover {
+    text-decoration: underline;
+}
+
+/* Mensagens de erro ou sucesso */
+.success {
+    color: green;
+    font-size: 14px;
+    text-align: center;
+}
+
+.error {
+    color: red;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* Compatível com qualquer altura de tela */
+@media screen and (max-height: 600px) {
+    body {
+        padding-top: 20px;
+    }
+
+    body::before {
+        margin-bottom: 20px;
+    }
+}
+
+label {
+    font-size: 14px;
+    margin-top: 10px;
+    color: #333;
+}
+
+form label {
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+input {
+    margin-bottom: 5px;
+}
+
+small.ajuda-senha {
+    color: #555;
+    font-size: 12px;
+    margin-top: -8px;
+    margin-bottom: 12px;
+}
+
