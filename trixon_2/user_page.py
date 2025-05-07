@@ -15,7 +15,7 @@ user_page_bp = Blueprint('user_page_bp', __name__)
 # Configuração do Banco de Dados
 def get_db_connection():
     return psycopg2.connect(
-        host="postgresql://trixonn_postgres_user:aPGDtngvRy3KEYo7Ofow4xoURyuK8VY9@dpg-d0db24k9c44c73ca2ljg-a/trixonn_postgres",  # substitua pelo hostname real do Render
+        host="dpg-d0db24k9c44c73ca2ljg-a",  # substitua pelo hostname real do Render
         database="trixonn_postgres",       # substitua pelo nome do banco do Render
         user="trixonn_postgres_user",             # substitua pelo usuário do banco
         password="aPGDtngvRy3KEYo7Ofow4xoURyuK8VY9",          # substitua pela senha
