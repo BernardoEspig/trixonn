@@ -4,7 +4,7 @@ from cadastro_usuario import cadastro_usuario_bp
 from user_page import user_page_bp
 from introducao import introducao_bp
 import os
-
+import psycopg2
 app = Flask(__name__)
 app.secret_key = 'sua_chave_secreta_super_segura'
 
@@ -23,6 +23,36 @@ app.register_blueprint(login_bp)
 app.register_blueprint(cadastro_usuario_bp)
 app.register_blueprint(user_page_bp)
 app.register_blueprint(introducao_bp)
+
+# Configuração do Banco de Dados
+def get_db_connection():
+    return psycopg2.connect(
+        host="dpg-d0db24k9c44c73ca2ljg-a",  # substitua pelo hostname real do Render
+        database="trixonn_postgres",       # substitua pelo nome do banco do Render
+        user="trixonn_postgres_user",             # substitua pelo usuário do banco
+        password="aPGDtngvRy3KEYo7Ofow4xoURyuK8VY9",          # substitua pela senha
+        port="5432"
+    )
+
+def init_db():
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    
+    try:
+        with open('schema.sql', 'r') as f:
+            sql_script = f.read()
+            cursor.execute(sql_script)
+        conn.commit()
+        print("Banco de dados inicializado com sucesso!")
+    except Exception as e:
+        print(f"Erro ao inicializar banco de dados: {e}")
+        conn.rollback()
+    finally:
+        cursor.close()
+        conn.close()
+
+# Chame esta função no início da sua aplicação
+init_db()
 
 if __name__ == '__main__':
     with app.app_context():

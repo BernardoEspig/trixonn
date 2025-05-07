@@ -8,16 +8,18 @@ import json  # Adicione esta linha no início do arquivo
 import pandas as pd
 from werkzeug.utils import secure_filename
 import os
+import psycopg2
 
 user_page_bp = Blueprint('user_page_bp', __name__)
 
 # Configuração do Banco de Dados
 def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="root",
-        database="db"
+    return psycopg2.connect(
+        host="dpg-d0db24k9c44c73ca2ljg-a",  # substitua pelo hostname real do Render
+        database="trixonn_postgres",       # substitua pelo nome do banco do Render
+        user="trixonn_postgres_user",             # substitua pelo usuário do banco
+        password="aPGDtngvRy3KEYo7Ofow4xoURyuK8VY9",          # substitua pela senha
+        port="5432"
     )
 
 def allowed_file(filename):

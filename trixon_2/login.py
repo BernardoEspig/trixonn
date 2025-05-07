@@ -6,18 +6,19 @@ import uuid
 from datetime import datetime, timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import mailtrap as mt
-
+import psycopg2
 
 login_bp = Blueprint('login', __name__)
 
 
 # Configuração do Banco de Dados
 def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="root",
-        database="db"
+    return psycopg2.connect(
+        host="dpg-d0db24k9c44c73ca2ljg-a",  # substitua pelo hostname real do Render
+        database="trixonn_postgres",       # substitua pelo nome do banco do Render
+        user="trixonn_postgres_user",             # substitua pelo usuário do banco
+        password="aPGDtngvRy3KEYo7Ofow4xoURyuK8VY9",          # substitua pela senha
+        port="5432"
     )
 
 

@@ -1,5 +1,5 @@
 flask
-mysql-connector-python
 werkzeug
 mailtrap
 pandas
+psycopg2-binary

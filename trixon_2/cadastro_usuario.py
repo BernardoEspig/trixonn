@@ -1,21 +1,22 @@
 from flask import Blueprint, Flask, render_template, request, redirect, url_for, flash
-import mysql.connector
 import re  # Para validar a senha com regex
-
+import psycopg2
 from flask import Blueprint
+import psycopg2
 
 cadastro_usuario_bp = Blueprint('cadastro_usuario_bp', __name__)
 
 # Configuração do MySQL (substitua com seus dados)
 
-
 def get_db_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="root",
-        password="root",
-        database="db"
+    return psycopg2.connect(
+        host="dpg-d0db24k9c44c73ca2ljg-a",  # substitua pelo hostname real do Render
+        database="trixonn_postgres",       # substitua pelo nome do banco do Render
+        user="trixonn_postgres_user",             # substitua pelo usuário do banco
+        password="aPGDtngvRy3KEYo7Ofow4xoURyuK8VY9",          # substitua pela senha
+        port="5432"
     )
+
 
 # Rota para a página de registro
 # Em cadastro_usuario.py, modifique a rota registrar()
